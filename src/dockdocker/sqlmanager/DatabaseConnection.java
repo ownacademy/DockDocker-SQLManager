@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dockdocker.sqlmanager;
 
 import java.sql.*;
@@ -11,8 +6,8 @@ import java.sql.*;
  *
  * @author Ivan
  */
-public class Database {
-    private static Database INSTANCE = null;
+public class DatabaseConnection {
+    private static DatabaseConnection INSTANCE = null;
     // JDBC driver name and database URL
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
     private static final String DB_URL = "jdbc:mysql://localhost/db_servers";
@@ -24,10 +19,11 @@ public class Database {
 
     private Connection Connection = null;
     private Statement Statement = null;
-        
-    private Database() throws Exception{
-        Class.forName("com.mysql.jdbc.Driver");
+    
+    private DatabaseConnection() throws Exception{
 
+        Class.forName("com.mysql.jdbc.Driver");
+            
         System.out.println("Connecting to a selected database...");
         Connection = DriverManager.getConnection(DB_URL, USER, PASS);
         System.out.println("Connected database successfully...");
@@ -36,9 +32,9 @@ public class Database {
         Statement = Connection.createStatement();
     }
     
-    public static Database getInstance() throws Exception {
+    public static DatabaseConnection getInstance() throws Exception {
         if(INSTANCE == null) {
-            INSTANCE = new Database();
+            INSTANCE = new DatabaseConnection();
             return INSTANCE;
         } else {
             return INSTANCE;
